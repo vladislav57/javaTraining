@@ -1,4 +1,4 @@
-package vladislav57.training.addressbook;
+package vladislav57.training.addressbook.model;
 
 public class ContactSecondaryData {
   private final String secondaryAddress;
