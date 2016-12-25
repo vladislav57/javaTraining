@@ -7,16 +7,16 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void ContactCreationTests() {
-        app.initContactCreation();
-        app.fillContactNames(new ContactNameData("firstName", "middleName", "lastName", "nickname", "title"));
-        app.fillContactEmployerData(new ContactEmployerData("company", "workPhone"));
-        app.fillContactAddressData(new ContactAddressData("address", "homePhome"));
-        app.fillContactContactsData(new ContactContactsData("mobilePhone", "fax", "e-mail", "e-mail2", "e-mail3", "homepage"));
-        app.fillContactBirthDate("1990");
-        app.fillContactAnniversaryDate("2010");
-        app.fillContactSecondaryData(new ContactSecondaryData("address2", "phone2", "notes"));
-        app.submitContactData();
-        app.gotoHomePage();
+        app.getContactHelper().initContactCreation();
+        app.getContactHelper().fillContactNames(new ContactNameData("firstName", "middleName", "lastName", "nickname", "title"));
+        app.getContactHelper().fillContactEmployerData(new ContactEmployerData("company", "workPhone"));
+        app.getContactHelper().fillContactAddressData(new ContactAddressData("address", "homePhome"));
+        app.getContactHelper().fillContactContactsData(new ContactContactsData("mobilePhone", "fax", "e-mail", "e-mail2", "e-mail3", "homepage"));
+        app.getContactHelper().fillContactBirthDate("1990");
+        app.getContactHelper().fillContactAnniversaryDate("2010");
+        app.getContactHelper().fillContactSecondaryData(new ContactSecondaryData("address2", "phone2", "notes"));
+        app.getContactHelper().submitContactData();
+        app.getNavigationHelper().gotoHomePage();
     }
 
 }
