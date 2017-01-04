@@ -44,4 +44,14 @@ public class BaseHelper {
       return false;
     }
   }
+
+  protected void selectElement(String id) {
+    if(!wd.findElement(By.id(id)).isSelected()) {
+      click(By.id(id));
+    }
+  }
+
+  protected void acceptAllert() {
+    wd.switchTo().alert().accept();
+  }
 }

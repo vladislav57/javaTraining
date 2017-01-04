@@ -6,7 +6,7 @@ import vladislav57.training.addressbook.model.GroupData;
 public class GroupCreationTests extends TestBase {
 
     @Test
-    public void GroupCreationTests() {
+    public void testGroupCreation() {
         app.getNavigationHelper().gotoGroupsPage();
         app.getGroupHelper().initGroupCreation();
         app.getGroupHelper().fillGroupForm(new GroupData("groupName", "groupHeader", "groupFooter"));

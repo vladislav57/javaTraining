@@ -40,10 +40,6 @@ public class ContactHelper extends BaseHelper {
     fillFieldByName(contactEmployerData.getWorkPhone(), "work");
   }
 
-  public void submitContactData() {
-    click(By.xpath("//div[@id='content']/form/input[21]"));
-  }
-
   public void fillContactSecondaryData(ContactSecondaryData contactSecondaryData) {
     fillFieldByName(contactSecondaryData.getSecondaryAddress(), "address2");
     fillFieldByName(contactSecondaryData.getSecondaryHome(), "phone2");
@@ -60,5 +56,29 @@ public class ContactHelper extends BaseHelper {
 
   public void initContactCreation() {
     click(By.linkText("add new"));
+  }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedContacts() {
+    click(By.xpath("//*[@id='content']/form[2]/div[2]/input"));
+  }
+
+  public void acceptContactDeletion() {
+    acceptAllert();
+  }
+
+  public void initContactModification() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
+
+  public void submitContactCreateData() {
+    click(By.xpath("//div[@id='content']/form/input[21]"));
+  }
+
+  public void submitContactEditData() {
+    click(By.xpath("//div[@id='content']/form/input[22]"));
   }
 }
