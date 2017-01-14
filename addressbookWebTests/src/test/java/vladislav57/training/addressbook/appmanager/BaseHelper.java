@@ -2,15 +2,16 @@ package vladislav57.training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by vlad on 25.12.2016.
  */
 public class BaseHelper {
-  FirefoxDriver wd;
+  WebDriver wd;
 
-  public BaseHelper(FirefoxDriver wd) {
+  public BaseHelper(WebDriver wd) {
     this.wd = wd;
   }
 
@@ -36,7 +37,7 @@ public class BaseHelper {
     }
   }
 
-  public static boolean isAlertPresent(FirefoxDriver wd) {
+  public static boolean isAlertPresent(WebDriver wd) {
     try {
       wd.switchTo().alert();
       return true;
