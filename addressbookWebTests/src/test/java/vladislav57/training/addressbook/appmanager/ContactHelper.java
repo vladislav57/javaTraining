@@ -82,4 +82,16 @@ public class ContactHelper extends BaseHelper {
   public void submitContactEditData() {
     click(By.xpath("//div[@id='content']/form/input[22]"));
   }
+
+  public boolean contactListEmpty() {
+    if(wd.findElements(By.cssSelector("[id][type='checkbox'][name='selected[]']")).size() == 0)
+      return true;
+    return false;
+  }
+
+  public void createNewContact() {
+    initContactCreation();
+    fillContactNames(new ContactNameData("firstName", "middleName", "lastName", "nickname", "title"));
+    submitContactCreateData();
+  }
 }

@@ -47,4 +47,18 @@ public class GroupHelper extends BaseHelper {
   public void submitGroupEditForm() {
     click(By.name("update"));
   }
+
+  public boolean groupListEmpty() {
+    /*if(wd.findElements(By.cssSelector("[type='checkbox'][name='selected[]']")).size() == 0)
+      return true;*/
+    if(!isElementPresent(By.cssSelector("[type='checkbox'][name='selected[]']")))
+      return true;
+    return false;
+  }
+
+  public void createGroup() {
+    initGroupCreation();
+    fillGroupForm(new GroupData("groupName", "groupHeader", "groupFooter"));
+    submitGroupForm();
+  }
 }
