@@ -1,8 +1,6 @@
 package vladislav57.training.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
@@ -16,9 +14,22 @@ public class BaseHelper {
   }
 
   public void fillFieldByName(String text, String fieldName) {
-    wd.findElement(By.name(fieldName)).click();
-    wd.findElement(By.name(fieldName)).clear();
-    wd.findElement(By.name(fieldName)).sendKeys(text);
+    WebElement element = wd.findElement(By.name(fieldName));
+    if(text != null && !element.getAttribute("value").equals(text))
+    {
+      element.click();
+      element.clear();
+      element.sendKeys(text);
+    }
+  }
+
+  public boolean isElementPresent(By locator) {
+    try {
+      wd.findElement(locator);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
   }
 
   protected void click(By locator) {
