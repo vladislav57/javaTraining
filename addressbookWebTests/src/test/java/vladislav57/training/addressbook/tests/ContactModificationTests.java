@@ -14,7 +14,7 @@ public class ContactModificationTests extends TestBase{
     if(app.getContactHelper().contactListEmpty())
       app.getContactHelper().createNewContact(new ContactNameData("firstName", "middleName", "lastName", "nick", "title"));
     app.getNavigationHelper().gotoHomePage();
-    app.getContactHelper().selectContact();
+    app.getContactHelper().selectContact(1);
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactNames(new ContactNameData("firstName", "middleName", "lastName", "nickname", "title"));
     app.getContactHelper().fillContactEmployerData(new ContactEmployerData("company", "workPhone"));
