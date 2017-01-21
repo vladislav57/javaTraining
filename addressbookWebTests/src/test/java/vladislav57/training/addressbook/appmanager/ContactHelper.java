@@ -89,9 +89,9 @@ public class ContactHelper extends BaseHelper {
     return false;
   }
 
-  public void createNewContact() {
+  public void createNewContact(ContactNameData nameData) {
     initContactCreation();
-    fillContactNames(new ContactNameData("firstName", "middleName", "lastName", "nickname", "title"));
+    fillContactNames(nameData);
     submitContactCreateData();
   }
 }

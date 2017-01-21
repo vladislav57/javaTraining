@@ -56,9 +56,9 @@ public class GroupHelper extends BaseHelper {
     return false;
   }
 
-  public void createGroup() {
+  public void createGroup(GroupData groupData) {
     initGroupCreation();
-    fillGroupForm(new GroupData("groupName", "groupHeader", "groupFooter"));
+    fillGroupForm(groupData);
     submitGroupForm();
   }
 }
