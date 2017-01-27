@@ -61,4 +61,11 @@ public class GroupHelper extends BaseHelper {
     fillGroupForm(groupData);
     submitGroupForm();
   }
+
+  public void modifyGroup(int index, GroupData group) {
+    selectGroup(index);
+    modifyGroup();
+    fillGroupForm(group);
+    submitGroupEditForm();
+  }
 }

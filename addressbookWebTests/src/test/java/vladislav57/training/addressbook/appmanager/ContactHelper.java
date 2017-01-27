@@ -60,7 +60,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+    wd.findElements(By.cssSelector("[id][type='checkbox'][name='selected[]']")).get(index).click();
   }
 
   public void deleteSelectedContacts() {
@@ -93,5 +93,12 @@ public class ContactHelper extends BaseHelper {
     initContactCreation();
     fillContactNames(nameData);
     submitContactCreateData();
+  }
+
+  public void modify(int index, ContactNameData data) {
+    selectContact(index);
+    initContactModification();
+    fillContactNames(data);
+    submitContactEditData();
   }
 }

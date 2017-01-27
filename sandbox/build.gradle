@@ -1,6 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'application'
-mainClassName = "vladislav57.training.sandbox.Program"
 
 repositories {
     mavenCentral()
