@@ -2,8 +2,7 @@ package vladislav57.training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import vladislav57.training.addressbook.model.GroupData;
+import vladislav57.training.addressbook.model.Group;
 
 /**
  * Created by vlad on 25.12.2016.
@@ -18,10 +17,10 @@ public class GroupHelper extends BaseHelper {
     click(By.name("submit"));
   }
 
-  public void fillGroupForm(GroupData groupData) {
-    fillFieldByName(groupData.getName(), "group_name");
-    fillFieldByName(groupData.getHeader(), "group_header");
-    fillFieldByName(groupData.getFooter(), "group_footer");
+  public void fillGroupForm(Group group) {
+    fillFieldByName(group.getName(), "group_name");
+    fillFieldByName(group.getHeader(), "group_header");
+    fillFieldByName(group.getFooter(), "group_footer");
   }
 
   public void initGroupCreation() {
@@ -56,13 +55,13 @@ public class GroupHelper extends BaseHelper {
     return false;
   }
 
-  public void createGroup(GroupData groupData) {
+  public void createGroup(Group group) {
     initGroupCreation();
-    fillGroupForm(groupData);
+    fillGroupForm(group);
     submitGroupForm();
   }
 
-  public void modifyGroup(int index, GroupData group) {
+  public void modifyGroup(int index, Group group) {
     selectGroup(index);
     modifyGroup();
     fillGroupForm(group);

@@ -21,7 +21,7 @@ public class ContactHelper extends BaseHelper {
     fillDate(year, By.xpath("//div[@id='content']/form/select[1]//option[3]"), By.xpath("//div[@id='content']/form/select[2]//option[2]"), "byear");
   }
 
-  public void fillContactNames(ContactData contact) {
+  public void fillContactNames(Contact contact) {
     fillFieldByName(contact.getFirstName(), "firstname");
     fillFieldByName(contact.getMiddleName(), "middlename");
     fillFieldByName(contact.getLastName(), "lastname");
@@ -63,13 +63,13 @@ public class ContactHelper extends BaseHelper {
     return false;
   }
 
-  public void createNewContact(ContactData nameData) {
+  public void createNewContact(Contact nameData) {
     initContactCreation();
     fillContactNames(nameData);
     submitContactCreateData();
   }
 
-  public void modify(int index, ContactData data) {
+  public void modify(int index, Contact data) {
     selectContact(index);
     initContactModification();
     fillContactNames(data);
