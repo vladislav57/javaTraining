@@ -21,7 +21,7 @@ public class ContactHelper extends BaseHelper {
     fillDate(year, By.xpath("//div[@id='content']/form/select[1]//option[3]"), By.xpath("//div[@id='content']/form/select[2]//option[2]"), "byear");
   }
 
-  public void fillContactNames(Contact contact) {
+  public void fillContactData(Contact contact) {
     fillFieldByName(contact.getFirstName(), "firstname");
     fillFieldByName(contact.getMiddleName(), "middlename");
     fillFieldByName(contact.getLastName(), "lastname");
@@ -29,19 +29,19 @@ public class ContactHelper extends BaseHelper {
     fillFieldByName(contact.getTitle(), "title");
   }
 
-  public void initContactCreation() {
+  public void initCreation() {
     click(By.linkText("add new"));
   }
 
-  public void selectContact(int index) {
+  public void select(int index) {
     wd.findElements(By.cssSelector("[id][type='checkbox'][name='selected[]']")).get(index).click();
   }
 
-  public void deleteSelectedContacts() {
+  public void deleteSelected() {
     click(By.xpath("//*[@id='content']/form[2]/div[2]/input"));
   }
 
-  public void acceptContactDeletion() {
+  public void acceptDeletion() {
     acceptAllert();
   }
 
@@ -49,30 +49,36 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
-  public void submitContactCreateData() {
+  public void submitCreation() {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void submitContactEditData() {
+  public void submitEdit() {
     click(By.xpath("//div[@id='content']/form/input[22]"));
   }
 
-  public boolean contactListEmpty() {
+  public boolean listIsEmpty() {
     if(wd.findElements(By.cssSelector("[id][type='checkbox'][name='selected[]']")).size() == 0)
       return true;
     return false;
   }
 
-  public void createNewContact(Contact nameData) {
-    initContactCreation();
-    fillContactNames(nameData);
-    submitContactCreateData();
+  public void create(Contact contact) {
+    initCreation();
+    fillContactData(contact);
+    submitCreation();
   }
 
   public void modify(int index, Contact data) {
-    selectContact(index);
+    select(index);
     initContactModification();
-    fillContactNames(data);
-    submitContactEditData();
+    fillContactData(data);
+    submitEdit();
+  }
+
+  public void delete(int index) {
+    select(index);
+    deleteSelected();
+    acceptDeletion();
   }
 }

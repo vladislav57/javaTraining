@@ -13,12 +13,12 @@ public class NavigationHelper extends BaseHelper {
     super(wd);
   }
 
-  public void gotoHomePage() {
+  public void homePage() {
     if( !isElementPresent(By.id("maintable")))
       click(By.linkText("home"));
   }
 
-  public void gotoGroupsPage() {
+  public void groupsPage() {
     if(isElementPresent(By.tagName("h1"))) {
       if ( wd.findElement(By.tagName("h1")).getText().equals("Groups") && isElementPresent(By.name("new")))
         return;

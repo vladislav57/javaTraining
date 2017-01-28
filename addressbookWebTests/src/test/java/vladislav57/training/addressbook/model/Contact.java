@@ -22,6 +22,9 @@ public class Contact {
     this.lastName = lastName;
   }
 
+  public Contact() {
+  }
+
   public int getId() {
     return id;
   }

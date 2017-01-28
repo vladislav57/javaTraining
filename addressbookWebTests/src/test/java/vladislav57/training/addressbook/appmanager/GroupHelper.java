@@ -39,7 +39,7 @@ public class GroupHelper extends BaseHelper {
     acceptAllert();
   }
 
-  public void modifyGroup() {
+  public void initModification() {
     click(By.name("edit"));
   }
 
@@ -55,15 +55,15 @@ public class GroupHelper extends BaseHelper {
     return false;
   }
 
-  public void createGroup(Group group) {
+  public void create(Group group) {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupForm();
   }
 
-  public void modifyGroup(int index, Group group) {
+  public void modify(int index, Group group) {
     selectGroup(index);
-    modifyGroup();
+    initModification();
     fillGroupForm(group);
     submitGroupEditForm();
   }

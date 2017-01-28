@@ -11,14 +11,13 @@ public class GroupDeletionTests extends TestBase {
 
   @Test
   public void testGroupDeletion() {
-    app.getNavigationHelper().gotoGroupsPage();
-    if(app.getGroupHelper().groupListEmpty())
-      app.getGroupHelper().createGroup(new Group("groupName", "groupHeader", "groupFooter"));
-    app.getNavigationHelper().gotoGroupsPage();
-    app.getGroupHelper().selectGroup(1);
-    app.getGroupHelper().deleteGroups();
-    //app.getGroupHelper().acceptGroupDeletion();
-    app.getNavigationHelper().gotoGroupsPage();
+    app.goTo().groupsPage();
+    if(app.group().groupListEmpty())
+      app.group().create(new Group().withName("groupName"));
+    app.goTo().groupsPage();
+    app.group().selectGroup(1);
+    app.group().deleteGroups();
+    app.goTo().groupsPage();
   }
 
 }
