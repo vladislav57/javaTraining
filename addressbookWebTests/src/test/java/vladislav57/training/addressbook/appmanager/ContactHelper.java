@@ -2,7 +2,6 @@ package vladislav57.training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import vladislav57.training.addressbook.model.*;
 
 /**
@@ -22,37 +21,12 @@ public class ContactHelper extends BaseHelper {
     fillDate(year, By.xpath("//div[@id='content']/form/select[1]//option[3]"), By.xpath("//div[@id='content']/form/select[2]//option[2]"), "byear");
   }
 
-  public void fillContactContactsData(ContactContactsData contactContactsData) {
-    fillFieldByName(contactContactsData.getMobilePhone(), "mobile");
-    fillFieldByName(contactContactsData.getFax(), "fax");
-    fillFieldByName(contactContactsData.getEmail(), "email");
-    fillFieldByName(contactContactsData.getEmail2(), "email2");
-    fillFieldByName(contactContactsData.getEmail3(), "email3");
-    fillFieldByName(contactContactsData.getHomepage(), "homepage");
-  }
-
-  public void fillContactAddressData(ContactAddressData contactAddressData) {
-    fillFieldByName(contactAddressData.getAddress(), "address");
-    fillFieldByName(contactAddressData.getHomePhone(), "home");
-  }
-
-  public void fillContactEmployerData(ContactEmployerData contactEmployerData) {
-    fillFieldByName(contactEmployerData.getCompany(), "company");
-    fillFieldByName(contactEmployerData.getWorkPhone(), "work");
-  }
-
-  public void fillContactSecondaryData(ContactSecondaryData contactSecondaryData) {
-    fillFieldByName(contactSecondaryData.getSecondaryAddress(), "address2");
-    fillFieldByName(contactSecondaryData.getSecondaryHome(), "phone2");
-    fillFieldByName(contactSecondaryData.getSecondaryNote(), "notes");
-  }
-
-  public void fillContactNames(ContactNameData contactNameData) {
-    fillFieldByName(contactNameData.getFirstName(), "firstname");
-    fillFieldByName(contactNameData.getMiddleName(), "middlename");
-    fillFieldByName(contactNameData.getLastName(), "lastname");
-    fillFieldByName(contactNameData.getNickname(), "nickname");
-    fillFieldByName(contactNameData.getTitle(), "title");
+  public void fillContactNames(ContactData contact) {
+    fillFieldByName(contact.getFirstName(), "firstname");
+    fillFieldByName(contact.getMiddleName(), "middlename");
+    fillFieldByName(contact.getLastName(), "lastname");
+    fillFieldByName(contact.getNickname(), "nickname");
+    fillFieldByName(contact.getTitle(), "title");
   }
 
   public void initContactCreation() {
@@ -89,13 +63,13 @@ public class ContactHelper extends BaseHelper {
     return false;
   }
 
-  public void createNewContact(ContactNameData nameData) {
+  public void createNewContact(ContactData nameData) {
     initContactCreation();
     fillContactNames(nameData);
     submitContactCreateData();
   }
 
-  public void modify(int index, ContactNameData data) {
+  public void modify(int index, ContactData data) {
     selectContact(index);
     initContactModification();
     fillContactNames(data);
