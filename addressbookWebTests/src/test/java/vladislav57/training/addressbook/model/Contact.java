@@ -1,7 +1,8 @@
 package vladislav57.training.addressbook.model;
 
 public class Contact {
-  private int id = 0;
+
+  private int id = Integer.MAX_VALUE;
   private String firstName = null;
   private String middleName = null;
   private String lastName = null;
@@ -62,6 +63,34 @@ public class Contact {
   public Contact withLastName(String lastName) {
     this.lastName = lastName;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return "Contact{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", middleName='" + middleName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Contact contact = (Contact) o;
+
+    if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
+    return lastName != null ? lastName.equals(contact.lastName) : contact.lastName == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = firstName != null ? firstName.hashCode() : 0;
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    return result;
   }
 
 }

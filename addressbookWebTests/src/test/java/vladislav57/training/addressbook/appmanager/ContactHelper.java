@@ -2,7 +2,11 @@ package vladislav57.training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import vladislav57.training.addressbook.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vlad on 25.12.2016.
@@ -80,5 +84,14 @@ public class ContactHelper extends BaseHelper {
     select(index);
     deleteSelected();
     acceptDeletion();
+  }
+
+  public List<Contact> getAll() {
+    List<Contact> contacts = new ArrayList<Contact>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("[name='entry']"));
+    for(WebElement element : elements) {
+      contacts.add(new Contact(Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("id")), element.findElement(By.xpath("./td[3]")).getText(), element.findElement(By.xpath("./td[2]")).getText()));
+    }
+    return contacts;
   }
 }

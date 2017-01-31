@@ -2,7 +2,11 @@ package vladislav57.training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import vladislav57.training.addressbook.model.Group;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vlad on 25.12.2016.
@@ -28,7 +32,7 @@ public class GroupHelper extends BaseHelper {
   }
 
   public void selectGroup(int index) {
-    wd.findElements(By.name("selected[]")).get(index);
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteGroups() {
@@ -48,8 +52,6 @@ public class GroupHelper extends BaseHelper {
   }
 
   public boolean groupListEmpty() {
-    /*if(wd.findElements(By.cssSelector("[type='checkbox'][name='selected[]']")).size() == 0)
-      return true;*/
     if(!isElementPresent(By.cssSelector("[type='checkbox'][name='selected[]']")))
       return true;
     return false;
@@ -66,5 +68,14 @@ public class GroupHelper extends BaseHelper {
     initModification();
     fillGroupForm(group);
     submitGroupEditForm();
+  }
+
+  public List<Group> getAll() {
+    List<Group> groups = new ArrayList<>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("[class='group']"));
+    for(WebElement element : elements) {
+      groups.add(new Group(Integer.parseInt(element.findElement(By.xpath("./input")).getAttribute("value")), element.getText()));
+    }
+    return groups;
   }
 }
