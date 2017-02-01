@@ -1,7 +1,6 @@
 package vladislav57.training.addressbook.appmanager;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by vlad on 25.12.2016.

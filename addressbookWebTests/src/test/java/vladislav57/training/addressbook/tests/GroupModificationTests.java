@@ -21,10 +21,10 @@ public class GroupModificationTests extends TestBase{
     if(app.group().groupListEmpty())
       app.group().create(group);
     app.goTo().groupsPage();
-    List<Group> before = app.group().getAll();
+    List<Group> before = app.group().getList();
     app.group().modify(index, group);
     app.goTo().groupsPage();
-    List<Group> after = app.group().getAll();
+    List<Group> after = app.group().getList();
     Assert.assertEquals(before.size(), after.size());
 
     before.get(index).withName(group.getName());

@@ -3,7 +3,9 @@ package vladislav57.training.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import vladislav57.training.addressbook.model.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import vladislav57.training.addressbook.model.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +90,8 @@ public class ContactHelper extends BaseHelper {
 
   public List<Contact> getAll() {
     List<Contact> contacts = new ArrayList<Contact>();
+    WebDriverWait wait = new WebDriverWait(wd, 2);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[name='entry']")));
     List<WebElement> elements = wd.findElements(By.cssSelector("[name='entry']"));
     for(WebElement element : elements) {
       contacts.add(new Contact(Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("id")), element.findElement(By.xpath("./td[3]")).getText(), element.findElement(By.xpath("./td[2]")).getText()));

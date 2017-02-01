@@ -3,10 +3,15 @@ package vladislav57.training.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vladislav57.training.addressbook.model.Group;
+import vladislav57.training.addressbook.model.Groups;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by vlad on 25.12.2016.
@@ -70,8 +75,19 @@ public class GroupHelper extends BaseHelper {
     submitGroupEditForm();
   }
 
-  public List<Group> getAll() {
+  public List<Group> getList() {
     List<Group> groups = new ArrayList<>();
+    WebDriverWait wait = new WebDriverWait(wd, 2);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[class='group']")));
+    List<WebElement> elements = wd.findElements(By.cssSelector("[class='group']"));
+    for(WebElement element : elements) {
+      groups.add(new Group(Integer.parseInt(element.findElement(By.xpath("./input")).getAttribute("value")), element.getText()));
+    }
+    return groups;
+  }
+
+  public Groups getAll() {
+    Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("[class='group']"));
     for(WebElement element : elements) {
       groups.add(new Group(Integer.parseInt(element.findElement(By.xpath("./input")).getAttribute("value")), element.getText()));
