@@ -52,8 +52,8 @@ public class ContactHelper extends BaseHelper {
     acceptAllert();
   }
 
-  public void initContactModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  public void initContactModification(Contact modify) {
+    click(By.xpath("//a[@href='edit.php?id=" + modify.getId() + "']"));
   }
 
   public void submitCreation() {
@@ -77,8 +77,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void modify(Contact modify, Contact data) {
-    select(modify);
-    initContactModification();
+    initContactModification(modify);
     fillContactData(data);
     submitEdit();
   }

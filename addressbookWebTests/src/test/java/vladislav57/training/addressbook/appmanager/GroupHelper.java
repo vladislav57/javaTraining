@@ -55,10 +55,10 @@ public class GroupHelper extends BaseHelper {
     submitForm();
   }
 
-  public void modify(Group old, Group newGroup) {
-    selectGroup(old);
+  public void modify(Group modify, Group data) {
+    selectGroup(modify);
     modify();
-    fillForm(newGroup);
+    fillForm(data);
     submitEdit();
   }
 
