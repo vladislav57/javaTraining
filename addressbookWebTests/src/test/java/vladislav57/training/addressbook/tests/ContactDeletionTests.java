@@ -3,9 +3,13 @@ package vladislav57.training.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import vladislav57.training.addressbook.model.Contact;
+import vladislav57.training.addressbook.model.Contacts;
 
 import java.util.Comparator;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by vlad on 25.12.2016.
@@ -14,24 +18,18 @@ public class ContactDeletionTests extends TestBase {
 
   @Test
   public void testContactDeletion() {
-    Contact contact = new Contact().withFirstName("firstName").withLastName("lastName");
-    int index = 1;
-
     app.goTo().homePage();
     if(app.contact().listIsEmpty())
-      app.contact().create(contact);
+      app.contact().create(new Contact().withFirstName("firstName").withLastName("lastName"));
     app.goTo().homePage();
-    List<Contact> before = app.contact().getAll();
-    app.contact().delete(index);
+    Contacts before = app.contact().getAll();
+    Contact delete = before.iterator().next();
+    app.contact().delete(delete);
     app.goTo().homePage();
-    List<Contact> after = app.contact().getAll();
-    Assert.assertEquals(before.size(), after.size() + 1);
+    Contacts after = app.contact().getAll();
 
-    before.remove(index);
-    Comparator<? super Contact> ById = (Comparator<Contact>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-    before.sort(ById);
-    after.sort(ById);
-    Assert.assertEquals(before, after);
+    assertThat(after.size(), equalTo(before.size() - 1));
+    assertThat(after, equalTo(before.without(delete)));
   }
 
 }

@@ -3,9 +3,13 @@ package vladislav57.training.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import vladislav57.training.addressbook.model.Contact;
+import vladislav57.training.addressbook.model.Contacts;
 
 import java.util.Comparator;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by vlad on 04.01.2017.
@@ -15,22 +19,19 @@ public class ContactModificationTests extends TestBase{
   @Test
   public void testContactModification() {
     Contact contact = new Contact().withFirstName("firstName").withLastName("lastName");
-    int index = 1;
 
     app.goTo().homePage();
     if(app.contact().listIsEmpty())
       app.contact().create(contact);
     app.goTo().homePage();
-    List<Contact> before = app.contact().getAll();
-    app.contact().modify(index, contact);
+    Contacts before = app.contact().getAll();
+    Contact modify = before.iterator().next();
+    Contact data = new Contact().withFirstName("modified").withLastName("lastName");
+    app.contact().modify(modify, data);
     app.goTo().homePage();
-    List<Contact> after = app.contact().getAll();
-    Assert.assertEquals(before.size(), after.size());
+    Contacts after = app.contact().getAll();
 
-    before.get(index).withFirstName(contact.getFirstName()).withLastName(contact.getLastName());
-    Comparator<? super Contact> ById = (Comparator<Contact>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-    before.sort(ById);
-    after.sort(ById);
-    Assert.assertEquals(before, after);
+    assertThat(after.size(), equalTo(before.size()));
+    assertThat(after, equalTo(before.without(modify).withAdded(data.withId(modify.getId()))));
   }
 }

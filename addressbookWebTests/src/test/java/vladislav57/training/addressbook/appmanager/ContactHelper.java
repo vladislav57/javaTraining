@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import vladislav57.training.addressbook.model.Contact;
+import vladislav57.training.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,23 +76,25 @@ public class ContactHelper extends BaseHelper {
     submitCreation();
   }
 
-  public void modify(int index, Contact data) {
-    select(index);
+  public void modify(Contact modify, Contact data) {
+    select(modify);
     initContactModification();
     fillContactData(data);
     submitEdit();
   }
 
-  public void delete(int index) {
-    select(index);
+  public void delete(Contact contact) {
+    select(contact);
     deleteSelected();
     acceptDeletion();
   }
 
-  public List<Contact> getAll() {
-    List<Contact> contacts = new ArrayList<Contact>();
-    WebDriverWait wait = new WebDriverWait(wd, 2);
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[name='entry']")));
+  private void select(Contact contact) {
+    wd.findElement(By.cssSelector("[id='" + contact.getId() + "'][type='checkbox'][name='selected[]']")).click();
+  }
+
+  public Contacts getAll() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.cssSelector("[name='entry']"));
     for(WebElement element : elements) {
       contacts.add(new Contact(Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("id")), element.findElement(By.xpath("./td[3]")).getText(), element.findElement(By.xpath("./td[2]")).getText()));

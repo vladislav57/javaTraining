@@ -3,15 +3,10 @@ package vladislav57.training.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import vladislav57.training.addressbook.model.Group;
 import vladislav57.training.addressbook.model.Groups;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by vlad on 25.12.2016.
@@ -22,38 +17,30 @@ public class GroupHelper extends BaseHelper {
     super(wd);
   }
 
-  public void submitGroupForm() {
-    click(By.name("submit"));
-  }
-
-  public void fillGroupForm(Group group) {
+  public void fillForm(Group group) {
     fillFieldByName(group.getName(), "group_name");
     fillFieldByName(group.getHeader(), "group_header");
     fillFieldByName(group.getFooter(), "group_footer");
   }
 
-  public void initGroupCreation() {
+  public void create() {
     click(By.name("new"));
   }
 
-  public void selectGroup(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
-  }
-
-  public void deleteGroups() {
+  public void delete() {
     click(By.name("delete"));
   }
 
-  public void acceptGroupDeletion() {
-    acceptAllert();
-  }
-
-  public void initModification() {
+  public void modify() {
     click(By.name("edit"));
   }
 
-  public void submitGroupEditForm() {
+  public void submitEdit() {
     click(By.name("update"));
+  }
+
+  public void submitForm() {
+    click(By.name("submit"));
   }
 
   public boolean groupListEmpty() {
@@ -63,27 +50,25 @@ public class GroupHelper extends BaseHelper {
   }
 
   public void create(Group group) {
-    initGroupCreation();
-    fillGroupForm(group);
-    submitGroupForm();
+    create();
+    fillForm(group);
+    submitForm();
   }
 
-  public void modify(int index, Group group) {
-    selectGroup(index);
-    initModification();
-    fillGroupForm(group);
-    submitGroupEditForm();
+  public void modify(Group old, Group newGroup) {
+    selectGroup(old);
+    modify();
+    fillForm(newGroup);
+    submitEdit();
   }
 
-  public List<Group> getList() {
-    List<Group> groups = new ArrayList<>();
-    WebDriverWait wait = new WebDriverWait(wd, 2);
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[class='group']")));
-    List<WebElement> elements = wd.findElements(By.cssSelector("[class='group']"));
-    for(WebElement element : elements) {
-      groups.add(new Group(Integer.parseInt(element.findElement(By.xpath("./input")).getAttribute("value")), element.getText()));
-    }
-    return groups;
+  public void delete(Group group) {
+    selectGroup(group);
+    delete();
+  }
+
+  private void selectGroup(Group group) {
+    wd.findElement(By.cssSelector("[type='checkbox'][name='selected[]'][value='" + group.getId() + "']")).click();
   }
 
   public Groups getAll() {
