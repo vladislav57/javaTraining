@@ -3,12 +3,9 @@ package vladislav57.training.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import vladislav57.training.addressbook.model.Contact;
 import vladislav57.training.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +31,13 @@ public class ContactHelper extends BaseHelper {
     fillFieldByName(contact.getLastName(), "lastname");
     fillFieldByName(contact.getNickname(), "nickname");
     fillFieldByName(contact.getTitle(), "title");
+    fillFieldByName(contact.getHomePhone(), "home");
+    fillFieldByName(contact.getMobilePhone(), "mobile");
+    fillFieldByName(contact.getWorkPhone(), "work");
+    fillFieldByName(contact.getEmail1(), "email");
+    fillFieldByName(contact.getEmail2(), "email2");
+    fillFieldByName(contact.getEmail3(), "email3");
+    fillFieldByName(contact.getAddress(), "address");
   }
 
   public void initCreation() {
@@ -52,7 +56,7 @@ public class ContactHelper extends BaseHelper {
     acceptAllert();
   }
 
-  public void initContactModification(Contact modify) {
+  public void openEditPage(Contact modify) {
     click(By.xpath("//a[@href='edit.php?id=" + modify.getId() + "']"));
   }
 
@@ -77,7 +81,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void modify(Contact modify, Contact data) {
-    initContactModification(modify);
+    openEditPage(modify);
     fillContactData(data);
     submitEdit();
   }
@@ -96,8 +100,34 @@ public class ContactHelper extends BaseHelper {
     Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.cssSelector("[name='entry']"));
     for(WebElement element : elements) {
-      contacts.add(new Contact(Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("id")), element.findElement(By.xpath("./td[3]")).getText(), element.findElement(By.xpath("./td[2]")).getText()));
+      int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("id"));
+      String firstName = element.findElement(By.xpath("./td[3]")).getText();
+      String lastName = element.findElement(By.xpath("./td[2]")).getText();
+      String allPhones = element.findElement(By.xpath("./td[6]")).getText();
+      String allEmails = element.findElement(By.xpath("./td[5]")).getText();
+      String address = element.findElement(By.xpath("./td[4]")).getText();
+      contacts.add(new Contact().withId(id).withFirstName(firstName).withLastName(lastName)
+              .withPhones(allPhones).withEmails(allEmails).withAddress(address));
     }
     return contacts;
   }
+
+  public Contact getInfoFromEditPage(Contact contact) {
+    openEditPage(contact);
+    String firstName = wd.findElement(By.cssSelector("[name='firstname']")).getAttribute("value");
+    String lastName  = wd.findElement(By.cssSelector("[name='lastname']")).getAttribute("value");
+    String middleName = wd.findElement(By.cssSelector("[name='middlename']")).getAttribute("value");
+    String homePhone = wd.findElement(By.cssSelector("[name='home']")).getAttribute("value");
+    String workPhone = wd.findElement(By.cssSelector("[name='work']")).getAttribute("value");
+    String mobilePhone = wd.findElement(By.cssSelector("[name='mobile']")).getAttribute("value");
+    String mail1 = wd.findElement(By.cssSelector("[name='email']")).getAttribute("value");
+    String mail2 = wd.findElement(By.cssSelector("[name='email2']")).getAttribute("value");
+    String mail3 = wd.findElement(By.cssSelector("[name='email3']")).getAttribute("value");
+    String address = wd.findElement(By.cssSelector("[name='address']")).getAttribute("value");
+    Contact info = new Contact().withFirstName(firstName).withLastName(lastName)
+            .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone)
+            .withEmail1(mail1).withEmail2(mail2).withEmail3(mail3).withAddress(address);
+    return info;
+  }
+
 }
