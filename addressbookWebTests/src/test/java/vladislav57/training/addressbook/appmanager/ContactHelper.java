@@ -56,8 +56,8 @@ public class ContactHelper extends BaseHelper {
     acceptAllert();
   }
 
-  public void openEditPage(Contact modify) {
-    click(By.xpath("//a[@href='edit.php?id=" + modify.getId() + "']"));
+  public void openEditPage(Contact contact) {
+    click(By.xpath("//a[@href='edit.php?id=" + contact.getId() + "']"));
   }
 
   public void submitCreation() {
@@ -130,4 +130,25 @@ public class ContactHelper extends BaseHelper {
     return info;
   }
 
+  public Contact getInfoFromDetailsPage(Contact contact) {
+    openDetailsPage(contact);
+    //String names = wd.findElement(By.xpath("//div[@id='content']/b")).getText();
+    String mail1 = wd.findElement(By.xpath("//a[@href='mailto:mail1']")).getText();
+    String mail2 = wd.findElement(By.xpath("//a[@href='mailto:mail2']")).getText();
+    String mail3 = wd.findElement(By.xpath("//a[@href='mailto:mail3']")).getText();
+    String[] data  = wd.findElement(By.xpath("//div[@id='content']")).getText().split("\n");
+    String[] names = data[0].split(" ");
+    String homePhone = data[3].replace("H: ", "");
+    String mobilePhone = data[4].replace("M: ", "");
+    String workPhone = data[5].replace("W: ", "");
+    String address = data[1];
+    Contact info = new Contact().withFirstName(names[0]).withLastName(names[1])
+            .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone)
+            .withEmail1(mail1).withEmail2(mail2).withEmail3(mail3).withAddress(address);
+    return info;
+  }
+
+  private void openDetailsPage(Contact contact) {
+    click(By.xpath("//a[@href='view.php?id=" + contact.getId() + "']"));
+  }
 }

@@ -1,27 +1,6 @@
 package vladislav57.training.addressbook.model;
 
 public class Group {
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    Group group = (Group) o;
-
-    if (id != group.id) return false;
-    if (name != null ? !name.equals(group.name) : group.name != null) return false;
-    if (header != null ? !header.equals(group.header) : group.header != null) return false;
-    return footer != null ? footer.equals(group.footer) : group.footer == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (header != null ? header.hashCode() : 0);
-    result = 31 * result + (footer != null ? footer.hashCode() : 0);
-    return result;
-  }
 
   private int id = Integer.MAX_VALUE;
   private String name = null;
@@ -39,8 +18,7 @@ public class Group {
     this.name = name;
   }
 
-  public Group() {
-  }
+  public Group() {}
 
   public String getName() {
     return name;
@@ -66,6 +44,28 @@ public class Group {
   public Group withName(String name) {
     this.name = name;
     return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Group group = (Group) o;
+
+    if (id != group.id) return false;
+    if (name != null ? !name.equals(group.name) : group.name != null) return false;
+    if (header != null ? !header.equals(group.header) : group.header != null) return false;
+    return footer != null ? footer.equals(group.footer) : group.footer == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (header != null ? header.hashCode() : 0);
+    result = 31 * result + (footer != null ? footer.hashCode() : 0);
+    return result;
   }
 
 }

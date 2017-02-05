@@ -43,6 +43,40 @@ public class ContactDataTests extends TestBase{
     assertThat(testContact.getAddress(), equalTo(infoFromEditPage.getAddress()));
   }
 
+  @Test
+  public void testContactDetailsForm() {
+    Contact contact = new Contact().withFirstName("testData").withHomePhone("8-495-942-06-32")
+            .withMobilePhone("+7(920)3072359").withWorkPhone("8 800 100 20 20")
+            .withEmail1("mail1").withEmail2("mail2").withEmail3("mail3").withAddress("123098 Russia Moscow");
+    Contact testContact = null;
+
+    app.goTo().homePage();
+    if(!app.contact().listIsEmpty()) {
+      Contacts contacts = app.contact().getAll();
+      if (contacts.stream().filter((s) -> s.getFirstName().equals("testData")).count() > 0) {
+        testContact = contacts.stream().filter((s) -> s.getFirstName().equals("testData")).iterator().next();
+      } else {
+        testContact = contacts.iterator().next();
+        app.contact().modify(testContact, contact);
+        app.goTo().homePage();
+      }
+    } else {
+      app.contact().create(contact);
+      app.goTo().homePage();
+      testContact = app.contact().getAll().iterator().next();
+    }
+
+    Contact infoFromEditPage = app.contact().getInfoFromEditPage(testContact);
+    app.goTo().homePage();
+    Contact detailsPage = app.contact().getInfoFromDetailsPage(testContact);
+    assertThat(infoFromEditPage.getFirstName(), equalTo(detailsPage.getFirstName()));
+    assertThat(infoFromEditPage.getLastName(), equalTo(detailsPage.getLastName()));
+    assertThat(infoFromEditPage.getAddress(), equalTo(detailsPage.getAddress()));
+    assertThat(infoFromEditPage.getEmail1(), equalTo(detailsPage.getEmail1()));
+    assertThat(infoFromEditPage.getEmail2(), equalTo(detailsPage.getEmail2()));
+    assertThat(infoFromEditPage.getEmail3(), equalTo(detailsPage.getEmail3()));
+  }
+
   private String mergeEmails(Contact contact) {
     return Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
             .stream().filter((s) -> ! s.equals(""))
