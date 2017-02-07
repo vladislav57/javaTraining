@@ -19,7 +19,7 @@ public class ContactDataGenerator {
   private List<Contact> generateContacts(int count) {
     List<Contact> list = new ArrayList<Contact>();
     for(int i = 0; i < count; i++ ) {
-      list.add(new Contact().withFirstName("firstName" + i));
+      list.add(new Contact().withFirstName("firstName" + i).withLastName("lastName" + i));
     }
     return list;
   }

@@ -2,13 +2,16 @@
   <vladislav57.training.addressbook.model.Contact>
     <id>2147483647</id>
     <firstName>firstName0</firstName>
+    <lastName>lastName0</lastName>
   </vladislav57.training.addressbook.model.Contact>
   <vladislav57.training.addressbook.model.Contact>
     <id>2147483647</id>
     <firstName>firstName1</firstName>
+    <lastName>lastName1</lastName>
   </vladislav57.training.addressbook.model.Contact>
   <vladislav57.training.addressbook.model.Contact>
     <id>2147483647</id>
     <firstName>firstName2</firstName>
+    <lastName>lastName2</lastName>
   </vladislav57.training.addressbook.model.Contact>
 </list>
