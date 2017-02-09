@@ -13,3 +13,8 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
+.idea/.idea/compiler.xml
+.idea/.idea/copyright/profiles_settings.xml
+*.xml
+.idea/.idea/modules/.idea.iml
+*.iml
