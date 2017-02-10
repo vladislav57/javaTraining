@@ -11,3 +11,13 @@ dependencies {
     compile 'com.beust:jcommander:1.58'
     compile 'com.thoughtworks.xstream:xstream:1.4.9'
 }
+
+test {
+    useTestNG()
+    if(project.hasProperty('target')) {
+        systemProperty('target', '${target}')
+    }
+    if(project.hasProperty('browser')) {
+        systemProperty('browser', '${browser}')
+    }
+}
