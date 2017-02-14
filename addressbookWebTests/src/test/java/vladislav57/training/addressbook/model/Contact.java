@@ -1,21 +1,57 @@
 package vladislav57.training.addressbook.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "addressbook")
 public class Contact {
 
+  @Id
   private int id = Integer.MAX_VALUE;
+
+  @Column(name = "firstname")
   private String firstName = null;
+
+  @Column(name = "middlename")
   private String middleName = null;
+
+  @Column(name = "lastname")
   private String lastName = null;
+
+  @Column(name = "nickname")
   private String nickname = null;
+
+  @Column(name = "title")
   private String title = null;
+
+  @Column(name = "home")
   private String homePhone = null;
+
+  @Column(name = "work")
   private String workPhone = null;
+
+  @Column(name = "mobile")
   private String mobilePhone = null;
+
+
   private String allPhones = null;
+
+  @Column(name = "address")
   private String address = null;
+
+
   private String allEmail = null;
+
+  @Column(name = "email")
   private String mail1 = null;
+
+  @Column(name = "email2")
   private String mail2 = null;
+
+  @Column(name = "email3")
   private String mail3 = null;
 
   public Contact() {}

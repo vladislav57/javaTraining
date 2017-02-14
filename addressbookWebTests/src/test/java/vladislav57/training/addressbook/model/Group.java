@@ -1,11 +1,40 @@
 package vladislav57.training.addressbook.model;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "group_list")
 public class Group {
 
+  @Id
+  @Column(name = "group_id")
   private int id = Integer.MAX_VALUE;
+
+  @Column(name = "group_name")
   private String name = null;
+
+  @Column(name = "group_header")
+  @Type(type = "text")
   private String header = null;
+
+  @Column(name = "group_footer")
+  @Type(type = "text")
   private String footer = null;
+
+  @Override
+  public String toString() {
+    return "Group{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", header='" + header + '\'' +
+            ", footer='" + footer + '\'' +
+            '}';
+  }
 
   public Group(String name, String header, String footer) {
     this.name = name;

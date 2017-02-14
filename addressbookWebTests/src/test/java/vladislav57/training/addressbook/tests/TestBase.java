@@ -13,11 +13,11 @@ import vladislav57.training.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
+  protected static final ApplicationManager app = new ApplicationManager();
 
   @BeforeSuite
   public void setUp() throws Exception {
-    app.init();
+    app.init(System.getProperty("browser", BrowserType.FIREFOX));
   }
 
   @AfterSuite

@@ -24,9 +24,17 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private ContactHelper contactHelper;
   private GroupHelper groupHelper;
+  private DBHelper dbHelper;
 
-  public ApplicationManager(String browser) {
+  public ApplicationManager() {
     properties = new Properties();
+
+  }
+
+  public void init(String browser) throws Exception {
+    dbHelper = new DBHelper();
+    dbHelper.setUp();
+
     if(browser.equals(BrowserType.CHROME)) {
       wd = new ChromeDriver();
     } else if (browser.equals(BrowserType.FIREFOX)) {
@@ -34,9 +42,7 @@ public class ApplicationManager {
     } else if (browser.equals(BrowserType.IEXPLORE)) {
       wd = new InternetExplorerDriver();
     }
-  }
 
-  public void init() throws IOException {
     String target = System.getProperty("target", "default");
     properties.load(new FileReader(new File("src/test/resources/" + target + ".properties")));
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -69,4 +75,6 @@ public class ApplicationManager {
   public SessionHelper getSessionHelper() {
     return sessionHelper;
   }
+
+  public DBHelper db() { return dbHelper; }
 }
