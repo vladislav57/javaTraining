@@ -2,10 +2,9 @@ package vladislav57.training.addressbook.model;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "group_list")
@@ -26,26 +25,12 @@ public class Group {
   @Type(type = "text")
   private String footer = null;
 
-  @Override
-  public String toString() {
-    return "Group{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", header='" + header + '\'' +
-            ", footer='" + footer + '\'' +
-            '}';
-  }
-
-  public Group(String name, String header, String footer) {
-    this.name = name;
-    this.header = header;
-    this.footer = footer;
-  }
-
-  public Group(int id, String name) {
-    this.id = id;
-    this.name = name;
-  }
+  @ManyToMany
+  @JoinTable(
+          name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "group_id"),
+          inverseJoinColumns = @JoinColumn(name = "id"))
+  private Set<Contact> contacts = new HashSet<Contact>();
 
   public Group() {}
 
@@ -65,6 +50,10 @@ public class Group {
     return id;
   }
 
+  public Contacts getContacts() {
+    return new Contacts(contacts);
+  }
+
   public Group withId(int id) {
     this.id = id;
     return this;
@@ -72,6 +61,21 @@ public class Group {
 
   public Group withName(String name) {
     this.name = name;
+    return this;
+  }
+
+  public Group withHeader(String header) {
+    this.header = header;
+    return this;
+  }
+
+  public Group withFooter(String footer) {
+    this.footer = footer;
+    return this;
+  }
+
+  public Group withContact(Contact contact) {
+    this.contacts.add(contact);
     return this;
   }
 
@@ -95,6 +99,16 @@ public class Group {
     result = 31 * result + (header != null ? header.hashCode() : 0);
     result = 31 * result + (footer != null ? footer.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public String toString() {
+    return "Group{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", header='" + header + '\'' +
+            ", footer='" + footer + '\'' +
+            '}';
   }
 
 }

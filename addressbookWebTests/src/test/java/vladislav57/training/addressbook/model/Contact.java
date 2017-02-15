@@ -3,6 +3,8 @@ package vladislav57.training.addressbook.model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -59,6 +61,9 @@ public class Contact {
   @Column(name = "email3")
   @Type(type = "text")
   private String mail3 = null;
+
+  @ManyToMany(mappedBy = "contacts")
+  private Set<Group> groups = new HashSet<Group>();
 
   public Contact() {}
 

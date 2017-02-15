@@ -75,7 +75,7 @@ public class GroupHelper extends BaseHelper {
     Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("[class='group']"));
     for(WebElement element : elements) {
-      groups.add(new Group(Integer.parseInt(element.findElement(By.xpath("./input")).getAttribute("value")), element.getText()));
+      groups.add(new Group().withId(Integer.parseInt(element.findElement(By.xpath("./input")).getAttribute("value"))).withName(element.getText()));
     }
     return groups;
   }
