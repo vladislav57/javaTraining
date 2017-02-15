@@ -24,12 +24,12 @@ public class ContactModificationTests extends TestBase{
     if(app.contact().listIsEmpty())
       app.contact().create(contact);
     app.goTo().homePage();
-    Contacts before = app.contact().getAll();
+    Contacts before = app.db().getContacts();
     Contact modify = before.iterator().next();
     Contact data = new Contact().withFirstName("modified").withLastName("lastName");
     app.contact().modify(modify, data);
     app.goTo().homePage();
-    Contacts after = app.contact().getAll();
+    Contacts after = app.db().getContacts();
 
     assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modify).withAdded(data.withId(modify.getId()))));

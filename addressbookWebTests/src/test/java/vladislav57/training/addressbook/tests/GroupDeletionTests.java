@@ -22,11 +22,11 @@ public class GroupDeletionTests extends TestBase {
     if(app.group().groupListEmpty())
       app.group().create(new Group().withName("groupName"));
     app.goTo().groupsPage();
-    Groups before = app.group().getAll();
+    Groups before = app.db().getGroups();
     Group group = before.iterator().next();
     app.group().delete(group);
     app.goTo().groupsPage();
-    Groups after = app.group().getAll();
+    Groups after = app.db().getGroups();
 
     assertThat(after.size(), equalTo(before.size() - 1));
     assertThat(after, equalTo(before.without(group)));
