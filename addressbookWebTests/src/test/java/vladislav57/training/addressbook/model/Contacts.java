@@ -3,6 +3,7 @@ package vladislav57.training.addressbook.model;
 import com.google.common.collect.ForwardingSet;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,6 +18,10 @@ public class Contacts extends ForwardingSet<Contact> {
 
   public Contacts() {
     this.delegate = new HashSet<Contact>();
+  }
+
+  public Contacts(List<Contact> list) {
+    this.delegate = new HashSet<Contact>(list);
   }
 
   @Override

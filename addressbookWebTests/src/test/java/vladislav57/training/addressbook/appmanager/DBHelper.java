@@ -37,10 +37,7 @@ public class DBHelper {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List<Group> list = session.createQuery( "from Group" ).list();
-    Groups groups = new Groups();
-    for(Group g : list) {
-      groups.add(g);
-    }
+    Groups groups = new Groups(list);
     session.getTransaction().commit();
     session.close();
     return groups;
@@ -49,11 +46,8 @@ public class DBHelper {
   public Contacts getContacts() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<Contact> list = session.createQuery( "from Contact" ).list();
-    Contacts contacts = new Contacts();
-    for(Contact c : list) {
-      contacts.add(c);
-    }
+    List<Contact> list = session.createQuery( "from Contact where deprecated = '0000-00-00'" ).list();
+    Contacts contacts = new Contacts(list);
     session.getTransaction().commit();
     session.close();
     return contacts;

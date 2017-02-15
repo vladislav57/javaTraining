@@ -1,9 +1,8 @@
 package vladislav57.training.addressbook.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "addressbook")
@@ -28,30 +27,37 @@ public class Contact {
   private String title = null;
 
   @Column(name = "home")
+  @Type(type = "text")
   private String homePhone = null;
 
   @Column(name = "work")
+  @Type(type = "text")
   private String workPhone = null;
 
   @Column(name = "mobile")
+  @Type(type = "text")
   private String mobilePhone = null;
 
-
+  @Transient
   private String allPhones = null;
 
   @Column(name = "address")
+  @Type(type = "text")
   private String address = null;
 
-
+  @Transient
   private String allEmail = null;
 
   @Column(name = "email")
+  @Type(type = "text")
   private String mail1 = null;
 
   @Column(name = "email2")
+  @Type(type = "text")
   private String mail2 = null;
 
   @Column(name = "email3")
+  @Type(type = "text")
   private String mail3 = null;
 
   public Contact() {}

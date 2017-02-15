@@ -16,6 +16,7 @@ import java.util.List;
  * Created by vlad on 06.02.2017.
  */
 public class ContactDataGenerator {
+
   private List<Contact> generateContacts(int count) {
     List<Contact> list = new ArrayList<Contact>();
     for(int i = 0; i < count; i++ ) {
@@ -23,6 +24,7 @@ public class ContactDataGenerator {
     }
     return list;
   }
+
   private void saveContactsAsXml(List<Contact> contacts, File file) throws IOException {
     XStream xStream = new XStream();
     Writer writer = new FileWriter(file);

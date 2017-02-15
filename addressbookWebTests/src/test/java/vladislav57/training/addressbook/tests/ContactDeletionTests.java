@@ -22,11 +22,11 @@ public class ContactDeletionTests extends TestBase {
     if(app.contact().listIsEmpty())
       app.contact().create(new Contact().withFirstName("firstName").withLastName("lastName"));
     app.goTo().homePage();
-    Contacts before = app.contact().getAll();
+    Contacts before = app.db().getContacts();
     Contact delete = before.iterator().next();
     app.contact().delete(delete);
     app.goTo().homePage();
-    Contacts after = app.contact().getAll();
+    Contacts after = app.db().getContacts();
 
     assertThat(after.size(), equalTo(before.size() - 1));
     assertThat(after, equalTo(before.without(delete)));
