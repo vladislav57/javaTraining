@@ -62,7 +62,7 @@ public class Contact {
   @Type(type = "text")
   private String mail3 = null;
 
-  @ManyToMany(mappedBy = "contacts")
+  @ManyToMany(mappedBy = "contacts", fetch = FetchType.EAGER)
   private Set<Group> groups = new HashSet<Group>();
 
   public Contact() {}
@@ -126,6 +126,8 @@ public class Contact {
   public String getAllPhones() {
     return allPhones;
   }
+
+  public Groups getGroups() { return new Groups(groups); }
 
 
   public Contact withId(int id) {

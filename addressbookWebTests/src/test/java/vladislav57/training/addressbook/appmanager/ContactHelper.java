@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import vladislav57.training.addressbook.model.Contact;
 import vladislav57.training.addressbook.model.Contacts;
+import vladislav57.training.addressbook.model.Group;
 
 import java.util.List;
 
@@ -150,5 +151,15 @@ public class ContactHelper extends BaseHelper {
 
   private void openDetailsPage(Contact contact) {
     click(By.xpath("//a[@href='view.php?id=" + contact.getId() + "']"));
+  }
+
+  public void addToGroup(Contact contact, Group group) {
+    select(contact);
+    pickDropdownGroup(group);
+  }
+
+  private void pickDropdownGroup(Group group) {
+    click(By.xpath("//*[@name='to_group']/*[@value='" + group.getId() + "']"));
+    click(By.cssSelector("[name='add']"));
   }
 }

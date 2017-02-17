@@ -1,12 +1,8 @@
 package vladislav57.training.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import vladislav57.training.addressbook.model.Contact;
 import vladislav57.training.addressbook.model.Contacts;
-
-import java.util.Comparator;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

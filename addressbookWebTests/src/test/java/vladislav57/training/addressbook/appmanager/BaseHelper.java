@@ -41,9 +41,9 @@ public class BaseHelper {
     fillFieldByName(year, yearFieldName);
   }
 
-  private void pickDropdownItem(By dayLocator) {
-    if (!wd.findElement(dayLocator).isSelected()) {
-      click(dayLocator);
+  private void pickDropdownItem(By locator) {
+    if (!wd.findElement(locator).isSelected()) {
+      click(locator);
     }
   }
 

@@ -25,7 +25,7 @@ public class Group {
   @Type(type = "text")
   private String footer = null;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "address_in_groups",
           joinColumns = @JoinColumn(name = "group_id"),
