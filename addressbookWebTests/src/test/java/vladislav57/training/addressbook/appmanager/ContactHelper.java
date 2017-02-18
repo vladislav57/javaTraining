@@ -155,11 +155,16 @@ public class ContactHelper extends BaseHelper {
 
   public void addToGroup(Contact contact, Group group) {
     select(contact);
-    pickDropdownGroup(group);
-  }
-
-  private void pickDropdownGroup(Group group) {
     click(By.xpath("//*[@name='to_group']/*[@value='" + group.getId() + "']"));
     click(By.cssSelector("[name='add']"));
+  }
+
+  public void removeFromGroup(Contact contact, Group group) {
+    select(contact);
+    click(By.cssSelector("[name='remove']"));
+  }
+
+  public void filterContactsByGroup(Group group) {
+    click(By.xpath("//*[@name='group']/*[@value='" + group.getId() + "']"));
   }
 }
