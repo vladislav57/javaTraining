@@ -20,7 +20,6 @@ public class ApplicationManager {
 
   public ApplicationManager() {
     properties = new Properties();
-
   }
 
   public void init(String browser) throws Exception {

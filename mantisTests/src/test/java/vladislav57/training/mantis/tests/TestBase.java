@@ -3,7 +3,7 @@ package vladislav57.training.mantis.tests;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import vladislav57.training.addressbook.appmanager.ApplicationManager;
+import vladislav57.training.mantis.appmanager.ApplicationManager;
 
 /**
  * Created by vlad on 25.12.2016.
