@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="addressbookWebTests_main" target="1.8" />
       <module name="addressbookWebTests_test" target="1.8" />
+      <module name="mantisTests_main" target="1.8" />
+      <module name="mantisTests_test" target="1.8" />
       <module name="sandbox_main" target="1.8" />
       <module name="sandbox_test" target="1.8" />
     </bytecodeTargetLevel>
