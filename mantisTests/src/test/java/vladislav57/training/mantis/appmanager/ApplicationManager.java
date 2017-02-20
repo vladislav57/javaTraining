@@ -17,30 +17,79 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
   WebDriver wd;
   Properties properties;
+  String browser;
+  private RegistrationHelper registrationHelper;
+  private BrowserHelper browserHelper;
+  private MailHelper mailHelper;
+  private NavigationHelper navigationHelper;
 
-  public ApplicationManager() {
+  public ApplicationManager(String browser) {
     properties = new Properties();
+    this.browser = browser;
   }
 
-  public void init(String browser) throws Exception {
-
-    if(browser.equals(BrowserType.CHROME)) {
-      wd = new ChromeDriver();
-    } else if (browser.equals(BrowserType.FIREFOX)) {
-      wd = new FirefoxDriver();
-    } else if (browser.equals(BrowserType.IEXPLORE)) {
-      wd = new InternetExplorerDriver();
-    }
+  public void init() throws Exception {
 
     String target = System.getProperty("target", "default");
     properties.load(new FileReader(new File("src/test/resources/" + target + ".properties")));
-    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-    wd.get(properties.getProperty("url"));
 
   }
 
   public void stop() {
-    wd.quit();
+    if(wd != null)
+      wd.quit();
   }
 
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
+
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
+
+  public RegistrationHelper registration() {
+    if(registrationHelper == null) {
+      registrationHelper = new RegistrationHelper(this);
+    }
+    return registrationHelper;
+  }
+
+  public BrowserHelper web() {
+    if(browserHelper == null) {
+      browserHelper = new BrowserHelper(this);
+    }
+    return browserHelper;
+  }
+
+  public NavigationHelper goTo() {
+    if(navigationHelper == null) {
+      navigationHelper = new NavigationHelper(this);
+    }
+    return navigationHelper;
+  }
+
+  public MailHelper mail() {
+    if(mailHelper == null) {
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
+  }
+
+  public WebDriver getDriver() {
+
+    if(wd == null) {
+      if(browser.equals(BrowserType.CHROME)) {
+        wd = new ChromeDriver();
+      } else if (browser.equals(BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (browser.equals(BrowserType.IEXPLORE)) {
+        wd = new InternetExplorerDriver();
+      }
+      wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+      wd.get(properties.getProperty("url"));
+    }
+
+    return wd;
+  }
 }
