@@ -10,8 +10,6 @@ import vladislav57.training.mantis.model.MailMessage;
 import java.io.IOException;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -27,28 +25,25 @@ public class changePasswordTests extends TestBase{
   @Test
   public void testChangePassword() throws IOException {
 
-    String username = "user";
-    String old_pass = "test";
+    String username;
     String new_pass = "test2";
-    String email = "user@localhost.localdomain";
     String adminLogin = "administrator";
     String adminPassword = "admin";
 
     app.web().login(adminLogin, adminPassword);
     app.goTo().adminUsersPanel();
-    app.web().selectUser(username);
+    username = app.web().selectNonAdminUser(adminLogin);
     app.web().resetUserPassword();
 
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-    String resetPasswordLink = findResetPasswordLink(mailMessages.get(0), email);
+    String resetPasswordLink = findResetPasswordLink(mailMessages.get(0));
     app.web().setNewPassword(resetPasswordLink, new_pass);
     HttpSession session = app.newSession();
     assertTrue(session.login(username, new_pass));
     assertTrue(session.isLoggedInAs(username));
   }
 
-  private String findResetPasswordLink(MailMessage mailMessage, String email) {
-    assertThat(mailMessage.to, equalTo(email));
+  private String findResetPasswordLink(MailMessage mailMessage) {
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
   }

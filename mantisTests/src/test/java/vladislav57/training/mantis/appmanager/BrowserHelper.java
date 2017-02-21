@@ -20,9 +20,11 @@ public class BrowserHelper extends BaseHelper {
     click(By.cssSelector("input[value='Войти']"));
   }
 
-  public void selectUser(String username) {
+  public String selectNonAdminUser(String adminLogin) {
     List<WebElement> list = wd.findElements(By.xpath("//tbody//a"));
-    list.stream().filter((e) -> e.getText().equals(username)).findFirst().get().click();
+    WebElement user = list.stream().filter((e) -> !e.getText().equals(adminLogin)).findAny().get();
+    user.click();
+    return user.getText();
   }
 
   public void resetUserPassword() {
